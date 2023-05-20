@@ -1,0 +1,14 @@
+.form {
+    border: 1px solid fff;
+}
+
+.inputs__container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.input{
+    margin: 3px;
+}

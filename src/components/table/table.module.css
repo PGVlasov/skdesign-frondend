@@ -1,0 +1,21 @@
+.container {
+  margin-top: 10px;
+  background-color: aqua;
+  border: 1px solid black;
+}
+
+.col{
+    width: 170px;
+    border: 1px solid black;
+}
+
+.row{
+    height: 30px;
+    background-color: beige;
+}
+
+.cell {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

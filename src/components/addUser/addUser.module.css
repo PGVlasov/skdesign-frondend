@@ -1,0 +1,25 @@
+.form {
+    border: 1px solid fff;
+}
+
+.inputs__container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input{
+    margin: 3px;
+}
+
+.btn{
+    cursor: pointer;
+}
+
+.btn__cancel{
+    border: none;
+    margin-left: 5px;
+    background-color: rgb(233, 120, 120);
+    color: beige;
+    cursor: pointer;
+}

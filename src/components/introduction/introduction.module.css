@@ -1,0 +1,25 @@
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px;
+    border-radius: 12px;
+    background-color: #ac9bd6;
+  
+    transition: 0.3s transform;
+    transform: scaleX(0.5);
+  }
+
+  .modal__text{
+    font-size: 32px;
+    color: rgb(142, 228, 12);
+  }
+
+  .button{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 100px;
+    height: 50px;
+  }
