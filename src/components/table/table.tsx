@@ -73,8 +73,9 @@ const Table: FC<Table> = ({ users,
               <th
                 key={col.id}
                 className={styles.col}
-                onClick={() => sortTable(col.id)}>{col.title}{col.id === sorting.id &&
+                onClick={() => sortTable(col.id)}>< div className={styles.title__wrapper}>{col.title}{col.id === sorting.id &&
                   <Arrow direction={sorting.direction} />}
+                </div>
               </th>
             ))}
           </tr>
