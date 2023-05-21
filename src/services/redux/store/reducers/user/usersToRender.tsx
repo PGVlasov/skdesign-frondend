@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '../../../interfaces/usersInterface';
+import { User } from '../../../interfaces/usersInterface';
 
 
 interface UserState {
-    users: IUser[]
+    users: User[]
     isLoading: boolean
     error: string
 }
@@ -14,21 +14,19 @@ const initialState: UserState = {
     error: ''
 }
 
-
 export const userToRenderSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        usersFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+        usersFetchingSuccess(state, action: PayloadAction<User[]>) {
             state.isLoading = false
             state.error = ''
             state.users = action.payload
         },
-        searchUsers(state, action: PayloadAction<IUser[]>) {
+        searchUsers(state, action: PayloadAction<User[]>) {
             state.isLoading = false
             state.error = ''
             state.users = action.payload
-            console.log("done")
         }
     }
 });

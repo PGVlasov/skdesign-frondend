@@ -4,7 +4,7 @@ import styles from './inputs.module.css'
 
 interface PhoneInput {
   value: string
-  handleChange: (e: any) => void
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   validPhoneInput: boolean
   setValidPhoneInput: Function
 }

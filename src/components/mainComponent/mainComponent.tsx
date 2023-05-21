@@ -8,22 +8,38 @@ import styles from "./mainComponent.module.css"
 import { User } from "@/services/redux/interfaces/usersInterface";
 import UserDetails from "../userDetails/userDetails";
 import { bigVolume, smallVolume } from "@/services/consts";
-var _ = require("lodash");
+import _ from "lodash"
 
-const columns = [
-  { id: 0, title: "id", accessor: "id" },
-  { id: 1, title: "firstName", accessor: "firstName" },
-  { id: 2, title: "lastName", accessor: "lastName" },
-  { id: 3, title: "email", accessor: "email" },
-  { id: 4, title: "phone", accessor: "phone" },
+export type Column = {
+  id: number
+  title: keyof Omit<User, "address" | "description">
+}
+const columns: Column[] = [
+  { id: 0, title: "id", },
+  { id: 1, title: "firstName" },
+  { id: 2, title: "lastName" },
+  { id: 3, title: "email" },
+  { id: 4, title: "phone" },
 ];
+
+const searchUsers = (arr: User[], userSearch: string) => {
+  const data = {
+    nodes: arr.filter((item) =>
+      item.firstName.toLowerCase().includes(userSearch.toLowerCase()) ||
+      item.lastName.toLowerCase().includes(userSearch.toLowerCase()) ||
+      item.phone.includes(userSearch.toLowerCase()) ||
+      item.email.includes(userSearch) ||
+      item.id.toString() === userSearch
+    ),
+  };
+  return data.nodes
+}
 
 const MainComponent = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [usersPerPage, setUsersPerPage] = useState<number>(10)
-  const [isUserClicked, setUserClicked] = useState<boolean>(false)
-  const [userSearch, setSearch] = useState<any>();
-  const [user, setUser] = useState<User>()
+  const [userSearch, setSearch] = useState<string>();
+  const [user, setUser] = useState<User | null>(null)
   const [url, setUrl] = useState<string>(smallVolume)
   const [sorting, setSorting] = useState<{ id: null | number, direction: "asc" | "desc" }>({ id: null, direction: "asc" })
   const { users, isLoading, error } = useAppSelector(state => state.userReducer)
@@ -40,21 +56,6 @@ const MainComponent = () => {
     dispatch(fetchUsers(url))
   }, [url]);
 
-  const searchUsers = (arr: User[], userSearch: any) => {
-    if (userSearch) {
-      const data = {
-        nodes: arr.filter((item) =>
-          item.firstName.toLowerCase().includes(userSearch.toLowerCase()) ||
-          item.lastName.toLowerCase().includes(userSearch.toLowerCase()) ||
-          item.phone.includes(userSearch.toLowerCase()) ||
-          item.email.includes(userSearch) ||
-          item.id == userSearch
-        ),
-      };
-      return data.nodes
-    }
-  }
-
   const sortTable = (columnId: number) => {
     if (columnId === sorting.id) {
       setSorting(prev => ({ id: columnId, direction: prev.direction === "asc" ? "desc" : 'asc' }))
@@ -70,13 +71,12 @@ const MainComponent = () => {
 
   const sortedArray = useMemo(() => {
     const sortingParam = columns.find(column => column.id === sorting.id)?.title
-    console.log(sortingParam, sorting.direction)
     return sorting.id !== null && sortingParam ? _.orderBy(filteredArray, [sortingParam], [sorting.direction]) : filteredArray
   }, [filteredArray, userSearch, sorting])
 
-  const lastUserIndex = usersPerPage * currentPage
-  const firstUserIndex = lastUserIndex - usersPerPage
-  const currentUser = sortedArray?.slice(firstUserIndex, lastUserIndex)
+  const totalRows = usersPerPage * currentPage
+  const firstUserIndex = totalRows - usersPerPage
+  const currentPageRows = sortedArray?.slice(firstUserIndex, totalRows)
   const paginate = (number: number) => {
     setCurrentPage(number)
   }
@@ -93,22 +93,20 @@ const MainComponent = () => {
   };
 
   if (isLoading) return <Spinner />
-  if (error) return <h1>{error}</h1>
+  if (error) return <span>{error}</span>
   return (
     <div className={styles.container}>
       <Table
         addNewUser={addNewUser}
-        users={currentUser || []}
+        users={currentPageRows || []}
         setUsersPerPage={setUsersPerPage}
         setUser={setUser}
-        setUserClicked={setUserClicked}
         setSearch={setSearch}
-        searchUsers={searchUsers}
         sortTable={sortTable}
         columns={columns}
         sorting={sorting}
       />
-      {user ? <UserDetails setUserClicked={setUserClicked} user={user || null} /> : null}
+      {user ? <UserDetails setUser={setUser} user={user} /> : null}
       <Pagination
         usersPerPage={usersPerPage}
         totalUsers={users.length}

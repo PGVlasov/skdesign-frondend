@@ -21,7 +21,6 @@ const EmailInput: FC<EmailInput> = ({ value, handleChange }) => {
         type="email"
         name="email"
         minLength={2}
-        //pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
         required
         placeholder="Введите email"
         value={value || ''}

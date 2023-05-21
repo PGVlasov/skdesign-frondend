@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react'
 
 export const useFormWithValidation = (): {
   values: any
-  handleChange: (event: any) => void
-  handleChangeLetters: (event: any) => void
-  handleChangeNumbers: (event: any) => void
-  errors: any
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeLetters: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeNumbers: (event: React.ChangeEvent<HTMLInputElement>) => void
+  errors: string
   isValid: boolean
   resetForm: (newValues?: {}, newErrors?: {},
     newIsValid?: boolean) => void

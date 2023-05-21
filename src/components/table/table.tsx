@@ -4,51 +4,24 @@ import styles from "./table.module.css"
 import { User } from "@/services/redux/interfaces/usersInterface";
 import { FC } from "react";
 import SearchInTable from "../searchInTable/searchInTable";
+import { Column } from "../mainComponent/mainComponent";
 
 interface Table {
   users: User[]
-  setUsersPerPage: Function
+  setUsersPerPage: (arg: number) => void
   setUser: Function
-  setUserClicked: Function
   addNewUser(id: number, firstName: string, lastName: string, email: string, phone: string): void;
   setSearch: (arg: string) => void
-  searchUsers(arr: any[], search: any): void;
   sortTable: (columnId: number) => void
-  columns: any[]
+  columns: Column[]
   sorting: { id: null | number, direction: "asc" | "desc" }
 }
 
 const Table: FC<Table> = ({ users,
-  setUsersPerPage, setUser, setUserClicked, addNewUser,
-  setSearch, searchUsers, sortTable, columns, sorting }) => {
+  setUsersPerPage, setUser, addNewUser,
+  setSearch, sortTable, columns, sorting }) => {
   const chengeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setUsersPerPage(event.target.value)
-  }
-
-  const search = (nameKey: string, arr: User[]) => {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].firstName === nameKey) {
-        return arr[i];
-      }
-      else if (arr[i].lastName === nameKey) {
-        return arr[i];
-      }
-      else if (arr[i].id.toString() === nameKey) {
-        return arr[i];
-      }
-      else if (arr[i].email === nameKey) {
-        return arr[i];
-      }
-      else if (arr[i].phone === nameKey) {
-        return arr[i];
-      }
-    }
-  }
-
-  const showUser = (event: any) => {
-    setUserClicked(true)
-    const user = search(event.target.innerText, users);
-    setUser(user)
+    setUsersPerPage(Number(event.target.value))
   }
 
   return (
@@ -65,7 +38,7 @@ const Table: FC<Table> = ({ users,
       </div>
       <hr />
       <AddUser addNewUser={addNewUser} />
-      <SearchInTable setSearch={setSearch} searchUsers={searchUsers} />
+      <SearchInTable setSearch={setSearch} />
       <table className={styles.container}>
         <thead>
           <tr>
@@ -81,10 +54,10 @@ const Table: FC<Table> = ({ users,
           </tr>
         </thead>
         <tbody>
-          {users.map((user: any, i) => (
-            <tr key={i} className={styles.row} onClick={showUser}>
+          {users.map((user: User) => (
+            <tr key={user.id} className={styles.row} onClick={() => setUser(user)}>
               {columns.map((col) => (
-                <td key={col.id} className={styles.cell}>{user[col.accessor]}</td>
+                <td key={col.id} className={styles.cell}>{user[col.title]}</td>
               ))}
             </tr>
           ))}

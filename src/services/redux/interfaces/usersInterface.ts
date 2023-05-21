@@ -1,4 +1,4 @@
-interface Adress {
+interface Address {
   city: string;
   state: string;
   streetAddress: string;
@@ -12,5 +12,5 @@ export interface User {
   email: string;
   phone: string;
   description?: string;
-  address?: Adress;
+  address?: Address;
 }
