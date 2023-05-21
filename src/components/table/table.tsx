@@ -55,7 +55,7 @@ const Table: FC<Table> = ({ users,
         </thead>
         <tbody>
           {users.map((user: User) => (
-            <tr key={user.id} className={styles.row} onClick={() => setUser(user)}>
+            <tr key={user.id + Math.random()} className={styles.row} onClick={() => setUser(user)}>
               {columns.map((col) => (
                 <td key={col.id} className={styles.cell}>{user[col.title]}</td>
               ))}
