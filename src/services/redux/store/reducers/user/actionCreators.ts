@@ -6,12 +6,8 @@ import { User } from "../../../interfaces/usersInterface";
 export const fetchUsers = (url: string) => async (dispatch: AppDispatch,) => {
   try {
     dispatch(userSlice.actions.usersFetching())
-    const response = await axios.get<User[]>(`${url}`
-    ).then((response: AxiosResponse) => {
-      dispatch(userSlice.actions.usersFetchingSuccess(response.data))
-    }).catch(function (error) {
-      alert(error.response.data.message);
-    });
+    const response = await axios.get<User[]>(`${url}`)
+    dispatch(userSlice.actions.usersFetchingSuccess(response.data))
   } catch (e) {
     dispatch(userSlice.actions.usersFetchingError("something went wrong"))
   }
