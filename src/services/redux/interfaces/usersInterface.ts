@@ -1,16 +1,16 @@
-interface IAdress {
-    city: string;
-    state: string;
-    streetAddress: string;
-    zip: string
+interface Adress {
+  city: string;
+  state: string;
+  streetAddress: string;
+  zip: string
 }
 
-export interface IUser {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    description?: string;
-    address?: IAdress;
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  description?: string;
+  address?: Adress;
 }

@@ -1,18 +1,16 @@
-import { useState } from "react"
+import { FC } from "react"
 import styles from "./arrows.module.css"
 
-const Arrow = () => {
-    const [direction, setDirection] = useState<Boolean>(false)
-    const clickHandler = () => {
-        setDirection(!direction)
-    }
+interface Arrow {
+  direction: "asc" | "desc"
+}
 
-    return (
-        <div className={styles.arrow} onClick={clickHandler}>
-            {direction ? <>▼</> : <>▲</>}
-        </div>
-    )
-
+const Arrow: FC<Arrow> = ({ direction }) => {
+  return (
+    <div className={styles.arrow} >
+      {direction === "desc" ? <>▼</> : <>▲</>}
+    </div>
+  )
 }
 
 export default Arrow

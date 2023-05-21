@@ -2,16 +2,14 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./reducers/user/users"
 import dataReducer from "./reducers/data/data"
 
-
-
 const roorReducer = combineReducers({
-    userReducer, dataReducer
+  userReducer, dataReducer
 })
 
 export const setupStore = () => {
-    return configureStore({
-        reducer: roorReducer
-    })
+  return configureStore({
+    reducer: roorReducer
+  })
 }
 
 export type RootState = ReturnType<typeof roorReducer>

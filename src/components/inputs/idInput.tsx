@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
 import styles from './inputs.module.css'
 
-interface LastNameInput {
+interface InputId {
   value: string
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
-const LasttNameInput: FC<LastNameInput> = ({ value, handleChange }) => {
+const IdInput: FC<InputId> = ({ value, handleChange }) => {
   const [validInput, setValidInput] = useState<Boolean>(true)
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>): void {
     handleChange(e)
@@ -14,19 +14,20 @@ const LasttNameInput: FC<LastNameInput> = ({ value, handleChange }) => {
   return (
     <div className={styles.input__container}>
       <span className={styles.input__error}>
-        {validInput ? '' : 'Нужно ввести фамилию'}
+        {validInput ? '' : 'Нужно ввести id'}
       </span>
       <input
         className={styles.input}
         type="text"
-        name="lastName"
+        pattern="[0-9]*"
+        name="id"
         minLength={2}
         required
-        placeholder="Введите фамилию"
+        placeholder="Введите id"
         value={value || ''}
         onChange={handleChangeInput}
       />
     </div>
   )
 }
-export default LasttNameInput
+export default IdInput

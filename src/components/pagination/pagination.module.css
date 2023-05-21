@@ -1,8 +1,8 @@
-.container{
+.container {
   margin-left: -30px;
 }
 
-.pagination{
+.pagination {
   display: flex;
   justify-content: left;
   flex-direction: row;
@@ -11,7 +11,7 @@
   padding-left: -30px;
 }
 
-.page__number{
+.page__number {
     list-style-type: none;
     border: 1px solid rgb(0, 0, 0);
     margin-top: 3px;
@@ -19,7 +19,7 @@
     margin-right: 3px;
 }
 
-.page__link{
+.page__link {
     padding: 2px;
     cursor: pointer;
     font-size: 20px;
